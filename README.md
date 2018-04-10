@@ -1,4 +1,4 @@
 # bfs
-Breadth first Search in Python
+Breadth first Search and A* Search Algorithm in Python
 
-Simple BFS implemented in Python
+Simple BFS and A-STAR implemented in Python
