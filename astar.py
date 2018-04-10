@@ -9,14 +9,14 @@ from heapq import heappop, heappush
 
 
 class astar:
-    def __init__(self, area, poly, rect, cir, graphix):
+    def __init__(self, area, poly, rect, cir):
         self.extreme_point = area
         self.poly = poly
         self.rect = rect
         self.cir = cir
         self.obs_array = []
         self.node_info = {}
-        self.graphix = graphix
+        #self.graphix = graphix
         self.PARENT = 0
         self.disp = pygame.display.set_mode(self.extreme_point)
         self.build_world()
@@ -138,10 +138,11 @@ class astar:
                     permited_childs.append(obj)
             #print permited_childs
             #aa = raw_input('Press anything to terminate')
-            if self.graphix == True:
-                for obj in permited_childs:
-                    pygame.draw.line(self.disp, (0, 255, 0), obj, obj)
-                    pygame.display.update()
+            #################################################################
+            #for obj in permited_childs:
+            #	if self.graphix == True:            		
+	        #        pygame.draw.line(self.disp, (0, 255, 0), obj, obj)
+	        #        pygame.display.update()
 
             for each_child in permited_childs:
                 new_child_g = current_node[G] + self.get_g_cost(current_node[POS], each_child)
@@ -159,6 +160,9 @@ class astar:
                 elif new_child_g < new_child_node[G]:
                     if new_child_node[OPEN]:
                         #We will not change it but add new one which will be the updated version of the previous one and make the previous one in valid
+                        #if self.graphix == True:
+                        #	pygame.draw.line(self.disp, (0, 255, 0), each_child, each_child)
+                        #	pygame.display.update()
                         new_child_node[VALID] = False
                         self.node_info[each_child] = new_child_node = new_child_node[:]
                         new_child_node[F] = new_child_g + new_child_node[H]
@@ -200,11 +204,11 @@ if __name__ == '__main__':
     goal_point = tuple(map(int, raw_input(
         "Enter goal point in the format: example - 'x,y' : ").split(',')))
     #goal_point = (250,149-149)
-    graph = str(raw_input("Want to turn on the process graphix? t or f : "))
-    if graph=='t':
-        graphix = True
-    if graph=='f':
-        graphix = False
+    #graph = str(raw_input("Want to turn on the process graphix? t or f : "))
+    #if graph=='t':
+    #    graphix = True
+    #if graph=='f':
+    #    graphix = False
     start_point = (start_point[0], 149 - start_point[1])
     goal_point = (goal_point[0], 149 - goal_point[1])
     poly = [(120, 149 - 55), (158, 149 - 51), (165, 149 - 89),
@@ -212,7 +216,7 @@ if __name__ == '__main__':
     circ = (180 - 15, 149 - 120 - 15, 180 + 15, 149 - 120 + 15)
     square = [(55, 149 - 90 - (45 / 2)), (55 + 50, 149 - 90 + (45 / 2))]
     area = (250, 150)
-    a = astar(area, poly, square, circ, graphix)
+    a = astar(area, poly, square, circ)
     if a.make_obs_hp(start_point):
         print "Start point is in the obtacle";
         exit()
